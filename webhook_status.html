@@ -21,6 +21,19 @@
             border-radius: 8px;
             font-family: monospace;
             word-break: break-all;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            color: #007bff;
         }
         .log-entry {
             background: #fff;
@@ -37,15 +50,61 @@
             border-left-color: #28a745;
             background: #f8fff9;
         }
+        .log-entry.debug {
+            border-left-color: #ffc107;
+            background: #fffbf0;
+        }
         .refresh-btn {
             position: fixed;
             bottom: 30px;
             right: 30px;
             z-index: 1000;
         }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-active { background-color: #28a745; }
+        .status-warning { background-color: #ffc107; }
+        .status-error { background-color: #dc3545; }
+        .status-pending { background-color: #6c757d; }
+        
+        .webhook-stats {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .test-result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .auto-refresh-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,123,255,0.1);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
+
+    <!-- Auto-refresh indicator -->
+    <div class="auto-refresh-indicator">
+        <i class="fas fa-sync-alt me-1"></i>
+        <span id="refreshCountdown">Auto-refresh in 30s</span>
+    </div>
 
     <div class="container mt-5">
         <div class="row">
@@ -62,34 +121,73 @@
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5><i class="fab fa-cc-stripe me-2"></i>Razorpay Webhook</h5>
+                                        <h5>
+                                            <i class="fab fa-cc-stripe me-2"></i>Razorpay Webhook
+                                            <span id="razorpayStatus" class="status-indicator status-active"></span>
+                                        </h5>
                                     </div>
                                     <div class="card-body">
-                                        <p><strong>Status:</strong> <span class="badge bg-success">Active</span></p>
+                                        <p><strong>Status:</strong> <span id="razorpayStatusText" class="badge bg-success">Active</span></p>
                                         <p><strong>URL:</strong></p>
                                         <div class="webhook-url">
                                             https://triptidryice.com/webhook.php
+                                            <button class="copy-btn" onclick="copyToClipboard('https://triptidryice.com/webhook.php')" title="Copy URL">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
                                         </div>
                                         <p class="text-muted mt-2">
                                             <small>Configure this URL in your Razorpay dashboard under Settings → Webhooks</small>
                                         </p>
+                                        <div class="webhook-stats">
+                                            <div class="row text-center">
+                                                <div class="col-6">
+                                                    <strong id="razorpayEventCount">-</strong><br>
+                                                    <small>Total Events</small>
+                                                </div>
+                                                <div class="col-6">
+                                                    <strong id="razorpayLastEvent">-</strong><br>
+                                                    <small>Last Event</small>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5><i class="fas fa-truck me-2"></i>Porter Webhook</h5>
+                                        <h5>
+                                            <i class="fas fa-truck me-2"></i>Porter Webhook
+                                            <span id="porterStatus" class="status-indicator status-error"></span>
+                                        </h5>
                                     </div>
                                     <div class="card-body">
-                                        <p><strong>Status:</strong> <span class="badge bg-warning">Pending Setup</span></p>
+                                        <p><strong>Status:</strong> <span id="porterStatusText" class="badge bg-danger">Connection Issues</span></p>
                                         <p><strong>URL:</strong></p>
                                         <div class="webhook-url">
                                             https://triptidryice.com/webhook.php
+                                            <button class="copy-btn" onclick="copyToClipboard('https://triptidryice.com/webhook.php')" title="Copy URL">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
                                         </div>
                                         <p class="text-muted mt-2">
                                             <small>Contact Porter support to enable webhooks for your account</small>
                                         </p>
+                                        <div class="webhook-stats">
+                                            <div class="row text-center">
+                                                <div class="col-6">
+                                                    <strong id="porterEventCount">-</strong><br>
+                                                    <small>Total Events</small>
+                                                </div>
+                                                <div class="col-6">
+                                                    <strong id="porterLastEvent">-</strong><br>
+                                                    <small>Last Event</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-warning mt-2" id="porterIssue">
+                                            <small><i class="fas fa-exclamation-triangle me-1"></i>Recent tests show HTTP timeout errors. Check Porter webhook configuration.</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -105,17 +203,25 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <button class="btn btn-primary w-100 mb-2" onclick="testRazorpayWebhook()">
+                                                <button class="btn btn-primary w-100 mb-2" onclick="testRazorpayWebhook()" id="testRazorpayBtn">
                                                     <i class="fas fa-credit-card me-2"></i>Test Razorpay Webhook
                                                 </button>
+                                                <div id="razorpayTestResult" class="test-result"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <button class="btn btn-warning w-100 mb-2" onclick="testPorterWebhook()">
+                                                <button class="btn btn-warning w-100 mb-2" onclick="testPorterWebhook()" id="testPorterBtn">
                                                     <i class="fas fa-shipping-fast me-2"></i>Test Porter Webhook
                                                 </button>
+                                                <div id="porterTestResult" class="test-result"></div>
                                             </div>
                                         </div>
-                                        <div id="testResults" class="mt-3"></div>
+                                        <div class="alert alert-info mt-3">
+                                            <strong>Recent Test Results:</strong><br>
+                                            <span id="lastTestResults">
+                                                ❌ Porter webhook test failed: Porter webhook test failed: HTTP 0<br>
+                                                ✅ Razorpay webhook: Last successful test with payment ID pay_test_1753909406991
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -127,9 +233,17 @@
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <h5><i class="fas fa-list me-2"></i>Recent Webhook Logs</h5>
-                                        <button class="btn btn-sm btn-outline-primary" onclick="loadWebhookLogs()">
-                                            <i class="fas fa-sync-alt me-1"></i>Refresh
-                                        </button>
+                                        <div>
+                                            <select class="form-select form-select-sm me-2" id="logFilter" onchange="filterLogs()" style="width: auto; display: inline-block;">
+                                                <option value="all">All Logs</option>
+                                                <option value="success">Success Only</option>
+                                                <option value="error">Errors Only</option>
+                                                <option value="debug">Debug Only</option>
+                                            </select>
+                                            <button class="btn btn-sm btn-outline-primary" onclick="loadWebhookLogs()">
+                                                <i class="fas fa-sync-alt me-1"></i>Refresh
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <div id="webhookLogs">
@@ -138,6 +252,62 @@
                                                     <span class="visually-hidden">Loading...</span>
                                                 </div>
                                                 <p class="mt-2">Loading webhook logs...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Health Score -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5><i class="fas fa-heartbeat me-2"></i>System Health Score</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-3 text-center">
+                                                <div class="position-relative d-inline-block">
+                                                    <svg width="120" height="120" class="health-score-circle">
+                                                        <circle cx="60" cy="60" r="50" stroke="#e9ecef" stroke-width="8" fill="none"/>
+                                                        <circle id="healthScoreProgress" cx="60" cy="60" r="50" stroke="#28a745" stroke-width="8" fill="none" 
+                                                                stroke-dasharray="314" stroke-dashoffset="314" 
+                                                                style="transform: rotate(-90deg); transform-origin: 60px 60px; transition: stroke-dashoffset 1s ease;"/>
+                                                    </svg>
+                                                    <div class="position-absolute top-50 start-50 translate-middle">
+                                                        <h3 id="healthScoreValue" class="mb-0 text-success">-</h3>
+                                                        <small class="text-muted">Health</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h6>Webhook Performance</h6>
+                                                        <div class="mb-2">
+                                                            <small>Razorpay Success Rate:</small>
+                                                            <div class="progress" style="height: 6px;">
+                                                                <div id="razorpaySuccessRate" class="progress-bar bg-success" style="width: 0%"></div>
+                                                            </div>
+                                                            <small id="razorpaySuccessText" class="text-muted">Loading...</small>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <small>Porter Success Rate:</small>
+                                                            <div class="progress" style="height: 6px;">
+                                                                <div id="porterSuccessRate" class="progress-bar bg-warning" style="width: 0%"></div>
+                                                            </div>
+                                                            <small id="porterSuccessText" class="text-muted">Loading...</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h6>Recent Activity</h6>
+                                                        <p class="mb-1"><strong>Total Events:</strong> <span id="totalEventsCount">-</span></p>
+                                                        <p class="mb-1"><strong>Last 24h:</strong> <span id="recentEventsCount">-</span></p>
+                                                        <p class="mb-0"><small class="text-muted">Last updated: <span id="lastUpdatedTime">-</span></small></p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -179,16 +349,60 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        let allLogs = [];
+        let autoRefreshInterval;
+        let countdownInterval;
+        let countdownSeconds = 30;
+
         // Load data on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadWebhookLogs();
             loadDatabaseStatus();
+            startAutoRefresh();
         });
+
+        // Auto-refresh functionality
+        function startAutoRefresh() {
+            // Refresh data every 30 seconds
+            autoRefreshInterval = setInterval(() => {
+                loadWebhookLogs();
+                loadDatabaseStatus();
+                countdownSeconds = 30;
+            }, 30000);
+
+            // Update countdown every second
+            countdownInterval = setInterval(() => {
+                countdownSeconds--;
+                document.getElementById('refreshCountdown').textContent = `Auto-refresh in ${countdownSeconds}s`;
+                if (countdownSeconds <= 0) {
+                    countdownSeconds = 30;
+                }
+            }, 1000);
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary success message
+                const btn = event.target.closest('.copy-btn');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check text-success"></i>';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                }, 2000);
+            });
+        }
 
         // Test Razorpay webhook
         async function testRazorpayWebhook() {
-            const resultsDiv = document.getElementById('testResults');
-            resultsDiv.innerHTML = '<div class="alert alert-info">Testing Razorpay webhook...</div>';
+            const btn = document.getElementById('testRazorpayBtn');
+            const resultDiv = document.getElementById('razorpayTestResult');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Testing...';
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'test-result alert alert-info';
+            resultDiv.innerHTML = 'Testing Razorpay webhook...';
 
             try {
                 const response = await fetch('test_webhook.php', {
@@ -203,19 +417,39 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    resultsDiv.innerHTML = '<div class="alert alert-success">✅ Razorpay webhook test successful!</div>';
+                    resultDiv.className = 'test-result alert alert-success';
+                    resultDiv.innerHTML = `✅ Razorpay webhook test successful!<br><small>Payment ID: ${result.payment_id}</small>`;
+                    updateWebhookStatus('razorpay', 'active');
                 } else {
-                    resultsDiv.innerHTML = '<div class="alert alert-danger">❌ Razorpay webhook test failed: ' + result.message + '</div>';
+                    resultDiv.className = 'test-result alert alert-danger';
+                    resultDiv.innerHTML = `❌ Razorpay webhook test failed: ${result.message}<br><small>${result.error || ''}</small>`;
+                    updateWebhookStatus('razorpay', 'error');
                 }
             } catch (error) {
-                resultsDiv.innerHTML = '<div class="alert alert-danger">❌ Error testing Razorpay webhook: ' + error.message + '</div>';
+                resultDiv.className = 'test-result alert alert-danger';
+                resultDiv.innerHTML = `❌ Error testing Razorpay webhook: ${error.message}`;
+                updateWebhookStatus('razorpay', 'error');
             }
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-credit-card me-2"></i>Test Razorpay Webhook';
+            
+            // Auto-hide result after 10 seconds
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+            }, 10000);
         }
 
         // Test Porter webhook
         async function testPorterWebhook() {
-            const resultsDiv = document.getElementById('testResults');
-            resultsDiv.innerHTML = '<div class="alert alert-info">Testing Porter webhook...</div>';
+            const btn = document.getElementById('testPorterBtn');
+            const resultDiv = document.getElementById('porterTestResult');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Testing...';
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'test-result alert alert-info';
+            resultDiv.innerHTML = 'Testing Porter webhook...';
 
             try {
                 const response = await fetch('test_webhook.php', {
@@ -230,12 +464,52 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    resultsDiv.innerHTML = '<div class="alert alert-success">✅ Porter webhook test successful!</div>';
+                    resultDiv.className = 'test-result alert alert-success';
+                    resultDiv.innerHTML = `✅ Porter webhook test successful!<br><small>Order ID: ${result.order_id}</small>`;
+                    updateWebhookStatus('porter', 'active');
                 } else {
-                    resultsDiv.innerHTML = '<div class="alert alert-danger">❌ Porter webhook test failed: ' + result.message + '</div>';
+                    resultDiv.className = 'test-result alert alert-danger';
+                    resultDiv.innerHTML = `❌ Porter webhook test failed: ${result.message}<br><small>${result.error || ''}</small>`;
+                    updateWebhookStatus('porter', 'error');
                 }
             } catch (error) {
-                resultsDiv.innerHTML = '<div class="alert alert-danger">❌ Error testing Porter webhook: ' + error.message + '</div>';
+                resultDiv.className = 'test-result alert alert-danger';
+                resultDiv.innerHTML = `❌ Error testing Porter webhook: ${error.message}`;
+                updateWebhookStatus('porter', 'error');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-shipping-fast me-2"></i>Test Porter Webhook';
+            
+            // Auto-hide result after 10 seconds
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+            }, 10000);
+        }
+
+        // Update webhook status indicators
+        function updateWebhookStatus(service, status) {
+            const statusIndicator = document.getElementById(`${service}Status`);
+            const statusText = document.getElementById(`${service}StatusText`);
+            
+            statusIndicator.className = `status-indicator status-${status}`;
+            
+            switch(status) {
+                case 'active':
+                    statusText.className = 'badge bg-success';
+                    statusText.textContent = 'Active';
+                    break;
+                case 'error':
+                    statusText.className = 'badge bg-danger';
+                    statusText.textContent = 'Error';
+                    break;
+                case 'warning':
+                    statusText.className = 'badge bg-warning';
+                    statusText.textContent = 'Warning';
+                    break;
+                default:
+                    statusText.className = 'badge bg-secondary';
+                    statusText.textContent = 'Unknown';
             }
         }
 
@@ -248,27 +522,52 @@
                 const data = await response.json();
                 
                 if (data.success && data.logs.length > 0) {
-                    let html = '';
-                    data.logs.forEach(log => {
-                        const logClass = log.type === 'error' ? 'error' : 'success';
-                        html += `
-                            <div class="log-entry ${logClass}">
-                                <div class="d-flex justify-content-between">
-                                    <strong>${log.timestamp}</strong>
-                                    <span class="badge bg-${log.type === 'error' ? 'danger' : 'success'}">${log.type}</span>
-                                </div>
-                                <p class="mb-1">${log.message}</p>
-                                <small class="text-muted">${log.details}</small>
-                            </div>
-                        `;
-                    });
-                    logsDiv.innerHTML = html;
+                    allLogs = data.logs;
+                    displayLogs(allLogs);
                 } else {
                     logsDiv.innerHTML = '<div class="alert alert-info">No webhook logs found.</div>';
                 }
             } catch (error) {
                 logsDiv.innerHTML = '<div class="alert alert-danger">Error loading webhook logs: ' + error.message + '</div>';
             }
+        }
+
+        // Display logs with filtering
+        function displayLogs(logs) {
+            const logsDiv = document.getElementById('webhookLogs');
+            let html = '';
+            
+            logs.forEach(log => {
+                const logClass = log.type === 'error' ? 'error' : 
+                               log.type === 'debug' ? 'debug' : 'success';
+                const badgeClass = log.type === 'error' ? 'danger' : 
+                                  log.type === 'debug' ? 'warning' : 'success';
+                
+                html += `
+                    <div class="log-entry ${logClass}" data-type="${log.type}">
+                        <div class="d-flex justify-content-between">
+                            <strong>${log.timestamp}</strong>
+                            <span class="badge bg-${badgeClass}">${log.type}</span>
+                        </div>
+                        <p class="mb-1">${log.message}</p>
+                        <small class="text-muted">${log.details}</small>
+                    </div>
+                `;
+            });
+            
+            logsDiv.innerHTML = html || '<div class="alert alert-info">No logs match the current filter.</div>';
+        }
+
+        // Filter logs
+        function filterLogs() {
+            const filter = document.getElementById('logFilter').value;
+            let filteredLogs = allLogs;
+            
+            if (filter !== 'all') {
+                filteredLogs = allLogs.filter(log => log.type === filter);
+            }
+            
+            displayLogs(filteredLogs);
         }
 
         // Load database status
@@ -295,6 +594,20 @@
                         </div>
                     `;
                     statusDiv.innerHTML = html;
+
+                    // Update webhook statistics
+                    if (data.webhook_health) {
+                        updateWebhookStats('razorpay', data.webhook_health.razorpay);
+                        updateWebhookStats('porter', data.webhook_health.porter);
+                    }
+
+                    // Update health score display
+                    if (data.system_health_score !== undefined) {
+                        updateHealthScore(data.system_health_score);
+                    }
+
+                    // Update general statistics
+                    updateGeneralStats(data);
                 } else {
                     statusDiv.innerHTML = '<div class="alert alert-danger">Error loading database status: ' + data.message + '</div>';
                 }
@@ -303,11 +616,110 @@
             }
         }
 
+        // Update health score display
+        function updateHealthScore(score) {
+            const scoreElement = document.getElementById('healthScoreValue');
+            const progressCircle = document.getElementById('healthScoreProgress');
+            
+            if (scoreElement) {
+                scoreElement.textContent = score + '%';
+                
+                // Update color based on score
+                if (score >= 80) {
+                    scoreElement.className = 'mb-0 text-success';
+                    progressCircle.setAttribute('stroke', '#28a745');
+                } else if (score >= 60) {
+                    scoreElement.className = 'mb-0 text-warning';
+                    progressCircle.setAttribute('stroke', '#ffc107');
+                } else {
+                    scoreElement.className = 'mb-0 text-danger';
+                    progressCircle.setAttribute('stroke', '#dc3545');
+                }
+                
+                // Animate progress circle
+                const circumference = 314; // 2 * π * 50
+                const offset = circumference - (score / 100) * circumference;
+                progressCircle.style.strokeDashoffset = offset;
+            }
+        }
+
+        // Update general statistics
+        function updateGeneralStats(data) {
+            const elements = {
+                'totalEventsCount': data.total_events,
+                'recentEventsCount': data.recent_events,
+                'lastUpdatedTime': data.last_updated
+            };
+            
+            Object.keys(elements).forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = elements[id] || '-';
+                }
+            });
+        }
+
+        // Update webhook statistics
+        function updateWebhookStats(service, stats) {
+            const eventCountEl = document.getElementById(`${service}EventCount`);
+            const lastEventEl = document.getElementById(`${service}LastEvent`);
+            const successRateEl = document.getElementById(`${service}SuccessRate`);
+            const successTextEl = document.getElementById(`${service}SuccessText`);
+            
+            if (eventCountEl) eventCountEl.textContent = stats.total_events || '0';
+            if (lastEventEl) {
+                if (stats.last_event) {
+                    const date = new Date(stats.last_event);
+                    lastEventEl.textContent = date.toLocaleDateString();
+                } else {
+                    lastEventEl.textContent = 'Never';
+                }
+            }
+            
+            // Update success rate
+            if (successRateEl && successTextEl) {
+                const rate = stats.success_rate || 0;
+                successRateEl.style.width = rate + '%';
+                successTextEl.textContent = rate + '%';
+                
+                // Update progress bar color based on success rate
+                successRateEl.className = 'progress-bar ' + 
+                    (rate >= 80 ? 'bg-success' : rate >= 60 ? 'bg-warning' : 'bg-danger');
+            }
+            
+            // Update status based on stats
+            if (stats.status === 'active') {
+                updateWebhookStatus(service, 'active');
+            } else if (stats.status === 'warning') {
+                updateWebhookStatus(service, 'warning');
+            } else if (stats.status === 'error') {
+                updateWebhookStatus(service, 'error');
+            } else {
+                updateWebhookStatus(service, 'pending');
+            }
+            
+            // Update error messages for Porter
+            if (service === 'porter' && stats.last_error) {
+                const issueEl = document.getElementById('porterIssue');
+                if (issueEl) {
+                    issueEl.innerHTML = `<small><i class="fas fa-exclamation-triangle me-1"></i>${stats.last_error}</small>`;
+                    issueEl.className = stats.status === 'error' ? 'alert alert-danger mt-2' : 'alert alert-warning mt-2';
+                }
+            }
+        }
+
         // Refresh all data
         function refreshAll() {
             loadWebhookLogs();
             loadDatabaseStatus();
+            countdownSeconds = 30; // Reset countdown
         }
+
+        // Clean up intervals when page unloads
+        window.addEventListener('beforeunload', () => {
+            if (autoRefreshInterval) clearInterval(autoRefreshInterval);
+            if (countdownInterval) clearInterval(countdownInterval);
+        });
     </script>
 </body>
 </html> 
