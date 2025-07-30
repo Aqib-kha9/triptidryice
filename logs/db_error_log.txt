@@ -1,0 +1,2 @@
+[2025-07-30 22:00:54] Update Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'porter_order_id' in 'field list'
+[2025-07-30 22:05:16] Update Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'porter_order_id' in 'field list'

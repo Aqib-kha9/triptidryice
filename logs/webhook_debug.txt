@@ -1,0 +1,45 @@
+[2025-07-31 02:29:10] RAW INPUT: {"event":"payment.captured","payload":{"payment":{"entity":{"id":"pay_test_1753907612","amount":123000,"currency":"INR","status":"captured"}}}}
+[2025-07-31 02:29:10] HEADERS: {"Host":"localhost:8000","Accept":"*\/*","Content-Type":"application\/json","X-Razorpay-Signature":"test_signature","Content-Length":"143"}
+[2025-07-31 02:29:10] Processing Razorpay Webhook
+[2025-07-31 02:29:10] Razorpay Webhook: Payment ID = pay_test_1753907612 | Status = payment.captured | Amount = 123000
+[2025-07-31 02:29:10] Payment status updated for Payment ID: pay_test_1753907612
+[2025-07-31 02:29:10] RAW INPUT: {"order_id":"PORTER_TEST_123","status":"Out for Delivery","estimated_delivery_time":1753912730000,"location":{"lat":19.076,"lng":72.8777},"tracking_url":"https:\/\/porter.in\/track\/PORTER_TEST_123"}
+[2025-07-31 02:29:10] HEADERS: {"Host":"localhost:8000","Accept":"*\/*","Content-Type":"application\/json","Content-Length":"199"}
+[2025-07-31 02:29:10] Processing Porter Webhook
+[2025-07-31 02:29:10] Porter Webhook: Order ID = PORTER_TEST_123 | Status = Out for Delivery | ETA = 1753912730000
+[2025-07-31 02:29:10] Order not found for Porter Order ID: PORTER_TEST_123
+[2025-07-30 23:02:56] TEST: Testing Porter webhook with order ID: PORTER_TEST_1753909376741
+[2025-07-30 23:03:06] TEST: Porter webhook test failed: HTTP 0, Error: Operation timed out after 10012 milliseconds with 0 bytes received
+[2025-07-31 02:33:06] RAW INPUT: {"order_id":"PORTER_TEST_1753909376741","status":"Out for Delivery","estimated_delivery_time":1753912976000,"location":{"lat":19.076,"lng":72.8777},"tracking_url":"https:\/\/porter.in\/track\/PORTER_TEST_1753909376741"}
+[2025-07-31 02:33:06] HEADERS: {"Host":"localhost:8000","Accept":"*\/*","Content-Type":"application\/json","Content-Length":"219"}
+[2025-07-31 02:33:06] Processing Porter Webhook
+[2025-07-31 02:33:06] Porter Webhook: Order ID = PORTER_TEST_1753909376741 | Status = Out for Delivery | ETA = 1753912976000
+[2025-07-31 02:33:06] Order not found for Porter Order ID: PORTER_TEST_1753909376741
+[2025-07-30 23:03:27] TEST: Testing Razorpay webhook with payment ID: pay_test_1753909406991
+[2025-07-30 23:03:37] TEST: Razorpay webhook test failed: HTTP 0, Error: Operation timed out after 10001 milliseconds with 0 bytes received
+[2025-07-31 02:33:37] RAW INPUT: {"event":"payment.captured","payload":{"payment":{"entity":{"id":"pay_test_1753909406991","amount":123000,"currency":"INR","status":"captured"}}}}
+[2025-07-31 02:33:37] HEADERS: {"Host":"localhost:8000","Accept":"*\/*","Content-Type":"application\/json","X-Razorpay-Signature":"test_signature","Content-Length":"146"}
+[2025-07-31 02:33:37] Processing Razorpay Webhook
+[2025-07-31 02:33:37] Razorpay Webhook: Payment ID = pay_test_1753909406991 | Status = payment.captured | Amount = 123000
+[2025-07-31 02:33:37] Payment status updated for Payment ID: pay_test_1753909406991
+[2025-07-30 23:04:42] TEST: Testing Porter webhook with order ID: PORTER_TEST_1753909482275
+[2025-07-30 23:04:52] TEST: Porter webhook test failed: HTTP 0, Error: Operation timed out after 10004 milliseconds with 0 bytes received
+[2025-07-31 02:34:52] RAW INPUT: {"order_id":"PORTER_TEST_1753909482275","status":"Out for Delivery","estimated_delivery_time":1753913082000,"location":{"lat":19.076,"lng":72.8777},"tracking_url":"https:\/\/porter.in\/track\/PORTER_TEST_1753909482275"}
+[2025-07-31 02:34:52] HEADERS: {"Host":"localhost:8000","Accept":"*\/*","Content-Type":"application\/json","Content-Length":"219"}
+[2025-07-31 02:34:52] Processing Porter Webhook
+[2025-07-31 02:34:52] Porter Webhook: Order ID = PORTER_TEST_1753909482275 | Status = Out for Delivery | ETA = 1753913082000
+[2025-07-31 02:34:52] Order not found for Porter Order ID: PORTER_TEST_1753909482275
+[2025-07-30 23:05:41] TEST: Testing Porter webhook with order ID: PORTER_TEST_1753909541805
+[2025-07-30 23:05:51] TEST: Porter webhook test failed: HTTP 0, Error: Operation timed out after 10003 milliseconds with 0 bytes received
+[2025-07-31 02:35:51] RAW INPUT: {"order_id":"PORTER_TEST_1753909541805","status":"Out for Delivery","estimated_delivery_time":1753913141000,"location":{"lat":19.076,"lng":72.8777},"tracking_url":"https:\/\/porter.in\/track\/PORTER_TEST_1753909541805"}
+[2025-07-31 02:35:51] HEADERS: {"Host":"localhost:8000","Accept":"*\/*","Content-Type":"application\/json","Content-Length":"219"}
+[2025-07-31 02:35:51] Processing Porter Webhook
+[2025-07-31 02:35:51] Porter Webhook: Order ID = PORTER_TEST_1753909541805 | Status = Out for Delivery | ETA = 1753913141000
+[2025-07-31 02:35:51] Order not found for Porter Order ID: PORTER_TEST_1753909541805
+[2025-07-30 23:06:41] TEST: Testing Porter webhook with order ID: PORTER_TEST_1753909601213
+[2025-07-30 23:06:51] TEST: Porter webhook test failed: HTTP 0, Error: Operation timed out after 10012 milliseconds with 0 bytes received
+[2025-07-31 02:36:51] RAW INPUT: {"order_id":"PORTER_TEST_1753909601213","status":"Out for Delivery","estimated_delivery_time":1753913201000,"location":{"lat":19.076,"lng":72.8777},"tracking_url":"https:\/\/porter.in\/track\/PORTER_TEST_1753909601213"}
+[2025-07-31 02:36:51] HEADERS: {"Host":"localhost:8000","Accept":"*\/*","Content-Type":"application\/json","Content-Length":"219"}
+[2025-07-31 02:36:51] Processing Porter Webhook
+[2025-07-31 02:36:51] Porter Webhook: Order ID = PORTER_TEST_1753909601213 | Status = Out for Delivery | ETA = 1753913201000
+[2025-07-31 02:36:51] Order not found for Porter Order ID: PORTER_TEST_1753909601213

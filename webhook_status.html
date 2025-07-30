@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Status - Tripti Dry Ice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .status-card {
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .status-card:hover {
+            transform: translateY(-5px);
+        }
+        .webhook-url {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .log-entry {
+            background: #fff;
+            border-left: 4px solid #007bff;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .log-entry.error {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+        .log-entry.success {
+            border-left-color: #28a745;
+            background: #f8fff9;
+        }
+        .refresh-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card status-card">
+                    <div class="card-header bg-primary text-white">
+                        <h1><i class="fas fa-link me-3"></i>Webhook Status Dashboard</h1>
+                        <p class="mb-0">Monitor webhook integrations with Razorpay and Porter</p>
+                    </div>
+                    <div class="card-body">
+                        
+                        <!-- Webhook URLs -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5><i class="fab fa-cc-stripe me-2"></i>Razorpay Webhook</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Status:</strong> <span class="badge bg-success">Active</span></p>
+                                        <p><strong>URL:</strong></p>
+                                        <div class="webhook-url">
+                                            https://triptidryice.com/webhook.php
+                                        </div>
+                                        <p class="text-muted mt-2">
+                                            <small>Configure this URL in your Razorpay dashboard under Settings → Webhooks</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5><i class="fas fa-truck me-2"></i>Porter Webhook</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Status:</strong> <span class="badge bg-warning">Pending Setup</span></p>
+                                        <p><strong>URL:</strong></p>
+                                        <div class="webhook-url">
+                                            https://triptidryice.com/webhook.php
+                                        </div>
+                                        <p class="text-muted mt-2">
+                                            <small>Contact Porter support to enable webhooks for your account</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Test Webhooks -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5><i class="fas fa-vial me-2"></i>Test Webhooks</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <button class="btn btn-primary w-100 mb-2" onclick="testRazorpayWebhook()">
+                                                    <i class="fas fa-credit-card me-2"></i>Test Razorpay Webhook
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button class="btn btn-warning w-100 mb-2" onclick="testPorterWebhook()">
+                                                    <i class="fas fa-shipping-fast me-2"></i>Test Porter Webhook
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="testResults" class="mt-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Webhook Logs -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5><i class="fas fa-list me-2"></i>Recent Webhook Logs</h5>
+                                        <button class="btn btn-sm btn-outline-primary" onclick="loadWebhookLogs()">
+                                            <i class="fas fa-sync-alt me-1"></i>Refresh
+                                        </button>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="webhookLogs">
+                                            <div class="text-center">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <p class="mt-2">Loading webhook logs...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Database Status -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5><i class="fas fa-database me-2"></i>Database Integration Status</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="dbStatus">
+                                            <div class="text-center">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <p class="mt-2">Checking database status...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refresh Button -->
+    <button class="btn btn-primary btn-lg refresh-btn" onclick="refreshAll()">
+        <i class="fas fa-sync-alt"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWebhookLogs();
+            loadDatabaseStatus();
+        });
+
+        // Test Razorpay webhook
+        async function testRazorpayWebhook() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<div class="alert alert-info">Testing Razorpay webhook...</div>';
+
+            try {
+                const response = await fetch('test_webhook.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'razorpay',
+                        payment_id: 'pay_test_' + Date.now()
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultsDiv.innerHTML = '<div class="alert alert-success">✅ Razorpay webhook test successful!</div>';
+                } else {
+                    resultsDiv.innerHTML = '<div class="alert alert-danger">❌ Razorpay webhook test failed: ' + result.message + '</div>';
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = '<div class="alert alert-danger">❌ Error testing Razorpay webhook: ' + error.message + '</div>';
+            }
+        }
+
+        // Test Porter webhook
+        async function testPorterWebhook() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<div class="alert alert-info">Testing Porter webhook...</div>';
+
+            try {
+                const response = await fetch('test_webhook.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'porter',
+                        order_id: 'PORTER_TEST_' + Date.now()
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultsDiv.innerHTML = '<div class="alert alert-success">✅ Porter webhook test successful!</div>';
+                } else {
+                    resultsDiv.innerHTML = '<div class="alert alert-danger">❌ Porter webhook test failed: ' + result.message + '</div>';
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = '<div class="alert alert-danger">❌ Error testing Porter webhook: ' + error.message + '</div>';
+            }
+        }
+
+        // Load webhook logs
+        async function loadWebhookLogs() {
+            const logsDiv = document.getElementById('webhookLogs');
+            
+            try {
+                const response = await fetch('get_webhook_logs.php');
+                const data = await response.json();
+                
+                if (data.success && data.logs.length > 0) {
+                    let html = '';
+                    data.logs.forEach(log => {
+                        const logClass = log.type === 'error' ? 'error' : 'success';
+                        html += `
+                            <div class="log-entry ${logClass}">
+                                <div class="d-flex justify-content-between">
+                                    <strong>${log.timestamp}</strong>
+                                    <span class="badge bg-${log.type === 'error' ? 'danger' : 'success'}">${log.type}</span>
+                                </div>
+                                <p class="mb-1">${log.message}</p>
+                                <small class="text-muted">${log.details}</small>
+                            </div>
+                        `;
+                    });
+                    logsDiv.innerHTML = html;
+                } else {
+                    logsDiv.innerHTML = '<div class="alert alert-info">No webhook logs found.</div>';
+                }
+            } catch (error) {
+                logsDiv.innerHTML = '<div class="alert alert-danger">Error loading webhook logs: ' + error.message + '</div>';
+            }
+        }
+
+        // Load database status
+        async function loadDatabaseStatus() {
+            const statusDiv = document.getElementById('dbStatus');
+            
+            try {
+                const response = await fetch('get_webhook_db_status.php');
+                const data = await response.json();
+                
+                if (data.success) {
+                    let html = `
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Recent Webhook Events</h6>
+                                <p><strong>Total Events:</strong> ${data.total_events}</p>
+                                <p><strong>Last 24 Hours:</strong> ${data.recent_events}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Order Updates</h6>
+                                <p><strong>Payment Updates:</strong> ${data.payment_updates}</p>
+                                <p><strong>Delivery Updates:</strong> ${data.delivery_updates}</p>
+                            </div>
+                        </div>
+                    `;
+                    statusDiv.innerHTML = html;
+                } else {
+                    statusDiv.innerHTML = '<div class="alert alert-danger">Error loading database status: ' + data.message + '</div>';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = '<div class="alert alert-danger">Error loading database status: ' + error.message + '</div>';
+            }
+        }
+
+        // Refresh all data
+        function refreshAll() {
+            loadWebhookLogs();
+            loadDatabaseStatus();
+        }
+    </script>
+</body>
+</html> 

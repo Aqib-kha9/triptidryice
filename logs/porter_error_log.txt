@@ -1,0 +1,1273 @@
+[2025-07-28 21:18:02] Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "5a048f482a814f01c4d0fb1e230c8079"
+}
+
+[2025-07-28 21:28:28] Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "5c818d142a8e081e8edbab6da4d51f44"
+}
+
+[2025-07-28 21:30:17] Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "826b2e750463ef2a7b706450e553ad12"
+}
+
+[2025-07-28 21:32:51] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "75fc006853516b0757ed44709fd55c25"
+}
+
+[2025-07-28 21:39:33] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "579e315241222d41a33080064086076e"
+}
+
+[2025-07-28 21:41:20] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "71836f09dd93f40d702b234f8015bf0d"
+}
+
+[2025-07-28 21:45:32] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "7738f55afbf3d9786478ed42abbf795e"
+}
+
+[2025-07-28 21:45:50] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "e0769f5d88e10f4adf210170db637c29"
+}
+
+[2025-07-28 21:47:48] Porter Error:
+{
+    "http_status": 500,
+    "response": {
+        "message": "An unexpected error occurred",
+        "request_id": "bbafe45174040136d8ea24169b26842f"
+    },
+    "curl_error": ""
+}
+
+[2025-07-28 21:49:18] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "b74e2e1e6bcc885b40b7c57cae756a2f"
+}
+
+[2025-07-28 21:50:51] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "ddf8411151abca1c3061b322317e7055"
+}
+
+[2025-07-28 21:51:59] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "c9461f2e4e83eb5192a90d39a63f613f"
+}
+
+[2025-07-28 21:53:01] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "4761694913b4260bd12cf74930391a75"
+}
+
+[2025-07-28 21:56:25] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "93b4da358c3e5e4a7f82ec5ccb2c2550"
+}
+
+[2025-07-28 21:58:57] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "018b98308e84ce02670dfc0d7b610d20"
+}
+
+[2025-07-29 11:35:51] Porter Error:
+null
+
+[2025-07-29 11:36:03] Porter Error:
+null
+
+[2025-07-29 12:13:06] Porter Error:
+null
+
+[2025-07-29 14:37:27] Porter Error:
+null
+
+[2025-07-29 20:57:12] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "d772aa3dd819c875bf0aa57122359950"
+}
+
+[2025-07-29 20:58:31] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "5689a34bc0d3e37b0c41116713936127"
+}
+
+[2025-07-29 21:05:21] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "0d3141439a5e56689c8e9f3d3a244376"
+}
+
+[2025-07-29 21:13:41] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "a094173007112c44f1636e5e04f8a602"
+}
+
+[2025-07-29 21:22:28] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "48481e4d698e4f1ece76342848b26668"
+}
+
+[2025-07-29 21:23:24] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "59acf92be2afe4485c3ef57f04f8124c"
+}
+
+[2025-07-30 09:26:04] Porter Error:
+{
+    "message": "Failed to convert request body to class in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest",
+    "cause": {
+        "message": "Illegal json parameter found: Missing required creator property 'lat' (index 8)\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 663] (through reference chain: in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"])",
+        "cause": {
+            "cause": null,
+            "stack_trace": [
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "from",
+                    "file_name": "MismatchedInputException.java",
+                    "line_number": 59,
+                    "class_name": "com.fasterxml.jackson.databind.exc.MismatchedInputException",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "reportInputMismatch",
+                    "file_name": "DeserializationContext.java",
+                    "line_number": 1781,
+                    "class_name": "com.fasterxml.jackson.databind.DeserializationContext",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_findMissing",
+                    "file_name": "PropertyValueBuffer.java",
+                    "line_number": 192,
+                    "class_name": "com.fasterxml.jackson.databind.deser.impl.PropertyValueBuffer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "getParameter",
+                    "file_name": "PropertyValueBuffer.java",
+                    "line_number": 130,
+                    "class_name": "com.fasterxml.jackson.databind.deser.impl.PropertyValueBuffer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "createFromObjectWith",
+                    "file_name": "KotlinValueInstantiator.kt",
+                    "line_number": 76,
+                    "class_name": "com.fasterxml.jackson.module.kotlin.KotlinValueInstantiator",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "build",
+                    "file_name": "PropertyBasedCreator.java",
+                    "line_number": 202,
+                    "class_name": "com.fasterxml.jackson.databind.deser.impl.PropertyBasedCreator",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeUsingPropertyBased",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 526,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObjectUsingNonDefault",
+                    "file_name": "BeanDeserializerBase.java",
+                    "line_number": 1493,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializerBase",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObject",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 348,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 185,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "SettableBeanProperty.java",
+                    "line_number": 545,
+                    "class_name": "com.fasterxml.jackson.databind.deser.SettableBeanProperty",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeWithErrorWrapping",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 570,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeUsingPropertyBased",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 440,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObjectUsingNonDefault",
+                    "file_name": "BeanDeserializerBase.java",
+                    "line_number": 1493,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializerBase",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObject",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 348,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 185,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "SettableBeanProperty.java",
+                    "line_number": 545,
+                    "class_name": "com.fasterxml.jackson.databind.deser.SettableBeanProperty",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeWithErrorWrapping",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 570,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeUsingPropertyBased",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 440,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObjectUsingNonDefault",
+                    "file_name": "BeanDeserializerBase.java",
+                    "line_number": 1493,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializerBase",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObject",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 348,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 185,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "readRootValue",
+                    "file_name": "DefaultDeserializationContext.java",
+                    "line_number": 342,
+                    "class_name": "com.fasterxml.jackson.databind.deser.DefaultDeserializationContext",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_readMapAndClose",
+                    "file_name": "ObjectMapper.java",
+                    "line_number": 4899,
+                    "class_name": "com.fasterxml.jackson.databind.ObjectMapper",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "readValue",
+                    "file_name": "ObjectMapper.java",
+                    "line_number": 3875,
+                    "class_name": "com.fasterxml.jackson.databind.ObjectMapper",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "invokeSuspend",
+                    "file_name": "JacksonConverter.kt",
+                    "line_number": 104,
+                    "class_name": "io.ktor.serialization.jackson.JacksonConverter$deserialize$2",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "resumeWith",
+                    "file_name": "ContinuationImpl.kt",
+                    "line_number": 33,
+                    "class_name": "kotlin.coroutines.jvm.internal.BaseContinuationImpl",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "run",
+                    "file_name": "DispatchedTask.kt",
+                    "line_number": 106,
+                    "class_name": "kotlinx.coroutines.DispatchedTask",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "run",
+                    "file_name": "LimitedDispatcher.kt",
+                    "line_number": 115,
+                    "class_name": "kotlinx.coroutines.internal.LimitedDispatcher$Worker",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "run",
+                    "file_name": "Tasks.kt",
+                    "line_number": 100,
+                    "class_name": "kotlinx.coroutines.scheduling.TaskImpl",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "runSafely",
+                    "file_name": "CoroutineScheduler.kt",
+                    "line_number": 584,
+                    "class_name": "kotlinx.coroutines.scheduling.CoroutineScheduler",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "executeTask",
+                    "file_name": "CoroutineScheduler.kt",
+                    "line_number": 793,
+                    "class_name": "kotlinx.coroutines.scheduling.CoroutineScheduler$Worker",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "runWorker",
+                    "file_name": "CoroutineScheduler.kt",
+                    "line_number": 697,
+                    "class_name": "kotlinx.coroutines.scheduling.CoroutineScheduler$Worker",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "run",
+                    "file_name": "CoroutineScheduler.kt",
+                    "line_number": 684,
+                    "class_name": "kotlinx.coroutines.scheduling.CoroutineScheduler$Worker",
+                    "native_method": false
+                }
+            ],
+            "target_type": "double",
+            "path_reference": "in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"]",
+            "message": "Missing required creator property 'lat' (index 8)\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 663] (through reference chain: in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"])",
+            "localized_message": "Missing required creator property 'lat' (index 8)\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 663] (through reference chain: in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"])",
+            "path": [
+                {
+                    "field_name": "drop_details",
+                    "description": "in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]",
+                    "index": -1
+                },
+                {
+                    "field_name": "address",
+                    "description": "in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]",
+                    "index": -1
+                },
+                {
+                    "field_name": "lat",
+                    "description": "in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"]",
+                    "index": -1
+                }
+            ],
+            "original_message": "Missing required creator property 'lat' (index 8)",
+            "location": {
+                "source_ref": null,
+                "line_nr": 1,
+                "column_nr": 663,
+                "char_offset": 662,
+                "byte_offset": -1
+            },
+            "suppressed": []
+        },
+        "stack_trace": [
+            {
+                "class_loader_name": "app",
+                "module_name": null,
+                "module_version": null,
+                "method_name": "deserialize",
+                "file_name": "JacksonConverter.kt",
+                "line_number": 107,
+                "class_name": "io.ktor.serialization.jackson.JacksonConverter",
+                "native_method": false
+            },
+            {
+                "class_loader_name": "app",
+                "module_name": null,
+                "module_version": null,
+                "method_name": "invokeSuspend",
+                "file_name": "JacksonConverter.kt",
+                "line_number": -1,
+                "class_name": "io.ktor.serialization.jackson.JacksonConverter$deserialize$1",
+                "native_method": false
+            },
+            {
+                "class_loader_name": "app",
+                "module_name": null,
+                "module_version": null,
+                "method_name": "resumeWith",
+                "file_name": "ContinuationImpl.kt",
+                "line_number": 33,
+                "class_name": "kotlin.coroutines.jvm.internal.BaseContinuationImpl",
+                "native_method": false
+            },
+            {
+                "class_loader_name": "app",
+                "module_name": null,
+                "module_version": null,
+                "method_name": "run",
+                "file_name": "DispatchedTask.kt",
+                "line_number": 104,
+                "class_name": "kotlinx.coroutines.DispatchedTask",
+                "native_method": false
+            },
+            {
+                "class_loader_name": null,
+                "module_name": "java.base",
+                "module_version": "11.0.22",
+                "method_name": "runWorker",
+                "file_name": "ThreadPoolExecutor.java",
+                "line_number": 1128,
+                "class_name": "java.util.concurrent.ThreadPoolExecutor",
+                "native_method": false
+            },
+            {
+                "class_loader_name": null,
+                "module_name": "java.base",
+                "module_version": "11.0.22",
+                "method_name": "run",
+                "file_name": "ThreadPoolExecutor.java",
+                "line_number": 628,
+                "class_name": "java.util.concurrent.ThreadPoolExecutor$Worker",
+                "native_method": false
+            },
+            {
+                "class_loader_name": null,
+                "module_name": "java.base",
+                "module_version": "11.0.22",
+                "method_name": "run",
+                "file_name": "Thread.java",
+                "line_number": 829,
+                "class_name": "java.lang.Thread",
+                "native_method": false
+            }
+        ],
+        "suppressed": [],
+        "localized_message": "Illegal json parameter found: Missing required creator property 'lat' (index 8)\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 663] (through reference chain: in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"])"
+    },
+    "stack_trace": [
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "convertBody",
+            "file_name": "RequestConverter.kt",
+            "line_number": 69,
+            "class_name": "io.ktor.server.plugins.contentnegotiation.RequestConverterKt",
+            "native_method": false
+        },
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "access$convertBody",
+            "file_name": "RequestConverter.kt",
+            "line_number": 1,
+            "class_name": "io.ktor.server.plugins.contentnegotiation.RequestConverterKt",
+            "native_method": false
+        },
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "invokeSuspend",
+            "file_name": "RequestConverter.kt",
+            "line_number": -1,
+            "class_name": "io.ktor.server.plugins.contentnegotiation.RequestConverterKt$convertBody$1",
+            "native_method": false
+        },
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "resumeWith",
+            "file_name": "ContinuationImpl.kt",
+            "line_number": 33,
+            "class_name": "kotlin.coroutines.jvm.internal.BaseContinuationImpl",
+            "native_method": false
+        },
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "run",
+            "file_name": "DispatchedTask.kt",
+            "line_number": 104,
+            "class_name": "kotlinx.coroutines.DispatchedTask",
+            "native_method": false
+        },
+        {
+            "class_loader_name": null,
+            "module_name": "java.base",
+            "module_version": "11.0.22",
+            "method_name": "runWorker",
+            "file_name": "ThreadPoolExecutor.java",
+            "line_number": 1128,
+            "class_name": "java.util.concurrent.ThreadPoolExecutor",
+            "native_method": false
+        },
+        {
+            "class_loader_name": null,
+            "module_name": "java.base",
+            "module_version": "11.0.22",
+            "method_name": "run",
+            "file_name": "ThreadPoolExecutor.java",
+            "line_number": 628,
+            "class_name": "java.util.concurrent.ThreadPoolExecutor$Worker",
+            "native_method": false
+        },
+        {
+            "class_loader_name": null,
+            "module_name": "java.base",
+            "module_version": "11.0.22",
+            "method_name": "run",
+            "file_name": "Thread.java",
+            "line_number": 829,
+            "class_name": "java.lang.Thread",
+            "native_method": false
+        }
+    ],
+    "suppressed": [],
+    "localized_message": "Failed to convert request body to class in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest"
+}
+
+[2025-07-30 10:26:14] Porter Error:
+{
+    "message": "Failed to convert request body to class in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest",
+    "cause": {
+        "message": "Illegal json parameter found: Cannot map `null` into type `double` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 593] (through reference chain: in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"])",
+        "cause": {
+            "cause": null,
+            "stack_trace": [
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "from",
+                    "file_name": "MismatchedInputException.java",
+                    "line_number": 63,
+                    "class_name": "com.fasterxml.jackson.databind.exc.MismatchedInputException",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "reportInputMismatch",
+                    "file_name": "DeserializationContext.java",
+                    "line_number": 1741,
+                    "class_name": "com.fasterxml.jackson.databind.DeserializationContext",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "getNullValue",
+                    "file_name": "NumberDeserializers.java",
+                    "line_number": 176,
+                    "class_name": "com.fasterxml.jackson.databind.deser.std.NumberDeserializers$PrimitiveOrWrapperDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "SettableBeanProperty.java",
+                    "line_number": 539,
+                    "class_name": "com.fasterxml.jackson.databind.deser.SettableBeanProperty",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeWithErrorWrapping",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 570,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeUsingPropertyBased",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 440,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObjectUsingNonDefault",
+                    "file_name": "BeanDeserializerBase.java",
+                    "line_number": 1493,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializerBase",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObject",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 348,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 185,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "SettableBeanProperty.java",
+                    "line_number": 545,
+                    "class_name": "com.fasterxml.jackson.databind.deser.SettableBeanProperty",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeWithErrorWrapping",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 570,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeUsingPropertyBased",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 440,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObjectUsingNonDefault",
+                    "file_name": "BeanDeserializerBase.java",
+                    "line_number": 1493,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializerBase",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObject",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 348,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 185,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "SettableBeanProperty.java",
+                    "line_number": 545,
+                    "class_name": "com.fasterxml.jackson.databind.deser.SettableBeanProperty",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeWithErrorWrapping",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 570,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_deserializeUsingPropertyBased",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 440,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObjectUsingNonDefault",
+                    "file_name": "BeanDeserializerBase.java",
+                    "line_number": 1493,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializerBase",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserializeFromObject",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 348,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "deserialize",
+                    "file_name": "BeanDeserializer.java",
+                    "line_number": 185,
+                    "class_name": "com.fasterxml.jackson.databind.deser.BeanDeserializer",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "readRootValue",
+                    "file_name": "DefaultDeserializationContext.java",
+                    "line_number": 342,
+                    "class_name": "com.fasterxml.jackson.databind.deser.DefaultDeserializationContext",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "_readMapAndClose",
+                    "file_name": "ObjectMapper.java",
+                    "line_number": 4899,
+                    "class_name": "com.fasterxml.jackson.databind.ObjectMapper",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "readValue",
+                    "file_name": "ObjectMapper.java",
+                    "line_number": 3875,
+                    "class_name": "com.fasterxml.jackson.databind.ObjectMapper",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "invokeSuspend",
+                    "file_name": "JacksonConverter.kt",
+                    "line_number": 104,
+                    "class_name": "io.ktor.serialization.jackson.JacksonConverter$deserialize$2",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "resumeWith",
+                    "file_name": "ContinuationImpl.kt",
+                    "line_number": 33,
+                    "class_name": "kotlin.coroutines.jvm.internal.BaseContinuationImpl",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "run",
+                    "file_name": "DispatchedTask.kt",
+                    "line_number": 106,
+                    "class_name": "kotlinx.coroutines.DispatchedTask",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "run",
+                    "file_name": "LimitedDispatcher.kt",
+                    "line_number": 115,
+                    "class_name": "kotlinx.coroutines.internal.LimitedDispatcher$Worker",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "run",
+                    "file_name": "Tasks.kt",
+                    "line_number": 100,
+                    "class_name": "kotlinx.coroutines.scheduling.TaskImpl",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "runSafely",
+                    "file_name": "CoroutineScheduler.kt",
+                    "line_number": 584,
+                    "class_name": "kotlinx.coroutines.scheduling.CoroutineScheduler",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "executeTask",
+                    "file_name": "CoroutineScheduler.kt",
+                    "line_number": 793,
+                    "class_name": "kotlinx.coroutines.scheduling.CoroutineScheduler$Worker",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "runWorker",
+                    "file_name": "CoroutineScheduler.kt",
+                    "line_number": 697,
+                    "class_name": "kotlinx.coroutines.scheduling.CoroutineScheduler$Worker",
+                    "native_method": false
+                },
+                {
+                    "class_loader_name": "app",
+                    "module_name": null,
+                    "module_version": null,
+                    "method_name": "run",
+                    "file_name": "CoroutineScheduler.kt",
+                    "line_number": 684,
+                    "class_name": "kotlinx.coroutines.scheduling.CoroutineScheduler$Worker",
+                    "native_method": false
+                }
+            ],
+            "target_type": "double",
+            "path_reference": "in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"]",
+            "message": "Cannot map `null` into type `double` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 593] (through reference chain: in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"])",
+            "localized_message": "Cannot map `null` into type `double` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 593] (through reference chain: in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"])",
+            "path": [
+                {
+                    "field_name": "drop_details",
+                    "description": "in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]",
+                    "index": -1
+                },
+                {
+                    "field_name": "address",
+                    "description": "in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]",
+                    "index": -1
+                },
+                {
+                    "field_name": "lat",
+                    "description": "in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"]",
+                    "index": -1
+                }
+            ],
+            "original_message": "Cannot map `null` into type `double` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)",
+            "location": {
+                "source_ref": null,
+                "line_nr": 1,
+                "column_nr": 593,
+                "char_offset": 592,
+                "byte_offset": -1
+            },
+            "suppressed": []
+        },
+        "stack_trace": [
+            {
+                "class_loader_name": "app",
+                "module_name": null,
+                "module_version": null,
+                "method_name": "deserialize",
+                "file_name": "JacksonConverter.kt",
+                "line_number": 107,
+                "class_name": "io.ktor.serialization.jackson.JacksonConverter",
+                "native_method": false
+            },
+            {
+                "class_loader_name": "app",
+                "module_name": null,
+                "module_version": null,
+                "method_name": "invokeSuspend",
+                "file_name": "JacksonConverter.kt",
+                "line_number": -1,
+                "class_name": "io.ktor.serialization.jackson.JacksonConverter$deserialize$1",
+                "native_method": false
+            },
+            {
+                "class_loader_name": "app",
+                "module_name": null,
+                "module_version": null,
+                "method_name": "resumeWith",
+                "file_name": "ContinuationImpl.kt",
+                "line_number": 33,
+                "class_name": "kotlin.coroutines.jvm.internal.BaseContinuationImpl",
+                "native_method": false
+            },
+            {
+                "class_loader_name": "app",
+                "module_name": null,
+                "module_version": null,
+                "method_name": "run",
+                "file_name": "DispatchedTask.kt",
+                "line_number": 104,
+                "class_name": "kotlinx.coroutines.DispatchedTask",
+                "native_method": false
+            },
+            {
+                "class_loader_name": null,
+                "module_name": "java.base",
+                "module_version": "11.0.22",
+                "method_name": "runWorker",
+                "file_name": "ThreadPoolExecutor.java",
+                "line_number": 1128,
+                "class_name": "java.util.concurrent.ThreadPoolExecutor",
+                "native_method": false
+            },
+            {
+                "class_loader_name": null,
+                "module_name": "java.base",
+                "module_version": "11.0.22",
+                "method_name": "run",
+                "file_name": "ThreadPoolExecutor.java",
+                "line_number": 628,
+                "class_name": "java.util.concurrent.ThreadPoolExecutor$Worker",
+                "native_method": false
+            },
+            {
+                "class_loader_name": null,
+                "module_name": "java.base",
+                "module_version": "11.0.22",
+                "method_name": "run",
+                "file_name": "Thread.java",
+                "line_number": 829,
+                "class_name": "java.lang.Thread",
+                "native_method": false
+            }
+        ],
+        "suppressed": [],
+        "localized_message": "Illegal json parameter found: Cannot map `null` into type `double` (set DeserializationConfig.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES to 'false' to allow)\n at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 593] (through reference chain: in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest[\"drop_details\"]->in.porter.pfeapigw.api.usecases.entities.Address[\"address\"]->in.porter.pfeapigw.api.usecases.entities.AddressDetails[\"lat\"])"
+    },
+    "stack_trace": [
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "convertBody",
+            "file_name": "RequestConverter.kt",
+            "line_number": 69,
+            "class_name": "io.ktor.server.plugins.contentnegotiation.RequestConverterKt",
+            "native_method": false
+        },
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "access$convertBody",
+            "file_name": "RequestConverter.kt",
+            "line_number": 1,
+            "class_name": "io.ktor.server.plugins.contentnegotiation.RequestConverterKt",
+            "native_method": false
+        },
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "invokeSuspend",
+            "file_name": "RequestConverter.kt",
+            "line_number": -1,
+            "class_name": "io.ktor.server.plugins.contentnegotiation.RequestConverterKt$convertBody$1",
+            "native_method": false
+        },
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "resumeWith",
+            "file_name": "ContinuationImpl.kt",
+            "line_number": 33,
+            "class_name": "kotlin.coroutines.jvm.internal.BaseContinuationImpl",
+            "native_method": false
+        },
+        {
+            "class_loader_name": "app",
+            "module_name": null,
+            "module_version": null,
+            "method_name": "run",
+            "file_name": "DispatchedTask.kt",
+            "line_number": 104,
+            "class_name": "kotlinx.coroutines.DispatchedTask",
+            "native_method": false
+        },
+        {
+            "class_loader_name": null,
+            "module_name": "java.base",
+            "module_version": "11.0.22",
+            "method_name": "runWorker",
+            "file_name": "ThreadPoolExecutor.java",
+            "line_number": 1128,
+            "class_name": "java.util.concurrent.ThreadPoolExecutor",
+            "native_method": false
+        },
+        {
+            "class_loader_name": null,
+            "module_name": "java.base",
+            "module_version": "11.0.22",
+            "method_name": "run",
+            "file_name": "ThreadPoolExecutor.java",
+            "line_number": 628,
+            "class_name": "java.util.concurrent.ThreadPoolExecutor$Worker",
+            "native_method": false
+        },
+        {
+            "class_loader_name": null,
+            "module_name": "java.base",
+            "module_version": "11.0.22",
+            "method_name": "run",
+            "file_name": "Thread.java",
+            "line_number": 829,
+            "class_name": "java.lang.Thread",
+            "native_method": false
+        }
+    ],
+    "suppressed": [],
+    "localized_message": "Failed to convert request body to class in.porter.pfeapigw.api.usecases.entities.CreateOrderRequest"
+}
+
+[2025-07-30 12:42:51] Porter Error:
+null
+
+[2025-07-30 20:16:30] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "bcdbc07284466413584e491ab66a9b21"
+}
+
+[2025-07-30 20:34:53] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "7ebbfd1835d48e21fcd9f11eba30b535"
+}
+
+[2025-07-30 21:50:58] Porter Error:
+{
+    "message": "An unexpected error occurred",
+    "request_id": "a25ff223e0208a235111017cb16a9c08"
+}
+
+[2025-07-30 22:00:54] Porter Error:
+{
+    "success": true,
+    "porter_success": false,
+    "message": "Order saved, but Porter booking failed.",
+    "order_id": "order_688a79f546ebf",
+    "porter_error": {
+        "message": "An unexpected error occurred",
+        "request_id": "025be9401fd7ee65fefefd2190d7c17c"
+    },
+    "http_status": 500,
+    "curl_error": "",
+    "debug_info": {
+        "api_url": "https:\/\/pfe-apigw-uat.porter.in",
+        "mode": "uat",
+        "request_id": "TRIPTI_1753905653"
+    }
+}
+
+[2025-07-30 22:05:16] Porter Error:
+{
+    "success": true,
+    "porter_success": false,
+    "message": "Order saved, but Porter booking failed.",
+    "order_id": "order_688a7afb663f5",
+    "porter_error": {
+        "message": "An unexpected error occurred",
+        "request_id": "c4ab747f6861b233a282eb4b66e8eb15"
+    },
+    "http_status": 500,
+    "curl_error": "",
+    "debug_info": {
+        "api_url": "https:\/\/pfe-apigw-uat.porter.in",
+        "mode": "uat",
+        "request_id": "TRIPTI_1753905915"
+    }
+}
+

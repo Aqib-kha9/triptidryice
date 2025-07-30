@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Test Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>🧪 Webhook Test Page</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-credit-card me-2"></i>Test Razorpay Webhook</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary" onclick="testRazorpay()">
+                            Test Razorpay Webhook
+                        </button>
+                        <div id="razorpayResult" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-truck me-2"></i>Test Porter Webhook</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-warning" onclick="testPorter()">
+                            Test Porter Webhook
+                        </button>
+                        <div id="porterResult" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-list me-2"></i>Recent Webhook Logs</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-info" onclick="loadLogs()">
+                            Load Recent Logs
+                        </button>
+                        <div id="logsResult" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-database me-2"></i>Database Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-success" onclick="loadDbStatus()">
+                            Load Database Status
+                        </button>
+                        <div id="dbResult" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function testRazorpay() {
+            const resultDiv = document.getElementById('razorpayResult');
+            resultDiv.innerHTML = '<div class="spinner-border" role="status"></div> Testing...';
+            
+            try {
+                const response = await fetch('test_webhook.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'razorpay',
+                        payment_id: 'pay_test_' + Date.now()
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-success">
+                            <h6>✅ Success!</h6>
+                            <p>${data.message}</p>
+                            <small>Payment ID: ${data.payment_id}</small>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <h6>❌ Failed!</h6>
+                            <p>${data.message}</p>
+                            ${data.error ? `<small>Error: ${data.error}</small>` : ''}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <h6>❌ Error!</h6>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testPorter() {
+            const resultDiv = document.getElementById('porterResult');
+            resultDiv.innerHTML = '<div class="spinner-border" role="status"></div> Testing...';
+            
+            try {
+                const response = await fetch('test_webhook.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'porter',
+                        order_id: 'PORTER_TEST_' + Date.now()
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-success">
+                            <h6>✅ Success!</h6>
+                            <p>${data.message}</p>
+                            <small>Order ID: ${data.order_id}</small>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <h6>❌ Failed!</h6>
+                            <p>${data.message}</p>
+                            ${data.error ? `<small>Error: ${data.error}</small>` : ''}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <h6>❌ Error!</h6>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadLogs() {
+            const resultDiv = document.getElementById('logsResult');
+            resultDiv.innerHTML = '<div class="spinner-border" role="status"></div> Loading...';
+            
+            try {
+                const response = await fetch('get_webhook_logs.php');
+                const data = await response.json();
+                
+                if (data.success && data.logs.length > 0) {
+                    let html = '<div class="table-responsive"><table class="table table-striped">';
+                    html += '<thead><tr><th>Time</th><th>Type</th><th>Message</th><th>Details</th></tr></thead><tbody>';
+                    
+                    data.logs.forEach(log => {
+                        html += `<tr>
+                            <td>${log.timestamp}</td>
+                            <td><span class="badge bg-${log.type === 'error' ? 'danger' : 'success'}">${log.type}</span></td>
+                            <td>${log.message}</td>
+                            <td><small>${log.details}</small></td>
+                        </tr>`;
+                    });
+                    
+                    html += '</tbody></table></div>';
+                    resultDiv.innerHTML = html;
+                } else {
+                    resultDiv.innerHTML = '<div class="alert alert-info">No webhook logs found.</div>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <h6>❌ Error!</h6>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadDbStatus() {
+            const resultDiv = document.getElementById('dbResult');
+            resultDiv.innerHTML = '<div class="spinner-border" role="status"></div> Loading...';
+            
+            try {
+                const response = await fetch('get_webhook_db_status.php');
+                const data = await response.json();
+                
+                if (data.success) {
+                    let html = '<div class="row">';
+                    html += '<div class="col-md-6">';
+                    html += '<h6>Webhook Events</h6>';
+                    html += `<p><strong>Total Events:</strong> ${data.total_events}</p>`;
+                    html += `<p><strong>Last 24 Hours:</strong> ${data.recent_events}</p>`;
+                    html += '</div>';
+                    html += '<div class="col-md-6">';
+                    html += '<h6>Order Updates</h6>';
+                    html += `<p><strong>Payment Updates:</strong> ${data.payment_updates}</p>`;
+                    html += `<p><strong>Delivery Updates:</strong> ${data.delivery_updates}</p>`;
+                    html += '</div>';
+                    html += '</div>';
+                    
+                    resultDiv.innerHTML = html;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <h6>❌ Error!</h6>
+                            <p>${data.message}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <h6>❌ Error!</h6>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 

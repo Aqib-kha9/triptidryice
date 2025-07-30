@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tripti Dry Ice - Shop</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <!-- ScrollTrigger for GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Poppins', sans-serif;
+          color: #fff;
+          background-color: #000;
+          overflow-x: hidden;
+          cursor: none;
+          /* Hide default cursor */
+      }
+
+      /* Custom Cursor */
+      #cursor {
+          position: fixed;
+          width: 20px;
+          height: 20px;
+          background-color: #ffd700;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          transform: translate(-50%, -50%);
+          transition: width 0.3s ease, height 0.3s ease;
+      }
+
+      #cursor-blur {
+          position: fixed;
+          width: 40px;
+          height: 40px;
+          background-color: rgba(255, 215, 0, 0.3);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9998;
+          transform: translate(-50%, -50%);
+          filter: blur(10px);
+      }
+
+      /* Hover effect for interactive elements */
+      a:hover~#cursor,
+      .btn-add-to-cart:hover~#cursor {
+          width: 40px;
+          height: 40px;
+      }
+
+      /* Full-screen background with video */
+      #main {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          overflow: hidden;
+      }
+
+      #main video {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transform: translate(-50%, -50%);
+          z-index: 0;
+      }
+
+      #main::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 1;
+      }
+
+      /* Navbar */
+      #nav {
+          position: absolute;
+          top: 0;
+          width: 100%;
+          padding: 20px 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          z-index: 2;
+      }
+
+      #nav h1 {
+          font-size: 2rem;
+          font-weight: 600;
+          color: #fff;
+      }
+
+      #nav .links a {
+          color: #fff;
+          text-decoration: none;
+          margin-left: 20px;
+          font-size: 1rem;
+          font-weight: 400;
+          transition: color 0.3s ease;
+      }
+
+      #nav .links a:hover {
+          color: #ffd700;
+      }
+
+      /* Hero Section */
+      #hero {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          text-align: center;
+          z-index: 2;
+      }
+
+      #hero h1 {
+          font-size: 4rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          color: #ffd700;
+          margin-bottom: 20px;
+      }
+
+      #hero p {
+          font-size: 1.2rem;
+          font-weight: 300;
+          color: #fff;
+      }
+
+      /* Product Section */
+      #products {
+          background-color: #111;
+          padding: 80px 0;
+      }
+
+      #products h2 {
+          font-size: 3rem;
+          font-weight: 600;
+          text-align: center;
+          margin-bottom: 40px;
+          color: #ffd700;
+      }
+
+      .product-card {
+          background: #222;
+          border-radius: 10px;
+          padding: 20px;
+          margin-bottom: 20px;
+          text-align: center;
+          transition: transform 0.3s ease;
+      }
+
+      .product-card img {
+          width: prestations: 100%;
+          max-width: 200px;
+          height: auto;
+          border-radius: 8px;
+          margin-bottom: 15px;
+      }
+
+      .product-card h5 {
+          font-size: 1.2rem;
+          margin-bottom: 10px;
+          color: #fff;
+      }
+
+      .product-card .price {
+          font-size: 1.1rem;
+          color: #ffd700;
+          margin-bottom: 15px;
+      }
+
+      .btn-add-to-cart {
+          background: #00ffff;
+          color: #000;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 5px;
+          font-weight: 500;
+          transition: background 0.3s ease;
+      }
+
+      .btn-add-to-cart:hover {
+          background: #e6c200;
+      }
+
+      /* Footer */
+      footer {
+          background: #000;
+          color: #fff;
+          padding: 20px 0;
+          text-align: center;
+          border-top: 1px solid #333;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <!-- Main Section -->
+    <div id="main">
+      <!-- Background Video -->
+      <video autoplay muted loop playsinline>
+        <source src="video/9694227-hd_1920_1080_25fps.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <!-- Navbar -->
+      <div id="nav">
+        <h1>
+          <a
+            href="https://www.triptidryice.com"
+            style="color: #fff; text-decoration: none"
+            >Tripti Dry Ice</a
+          >
+        </h1>
+        <div class="links d-flex align-items-center">
+          <a href="index.html">Home</a>
+          <a href="our_products.html">Shop</a>
+          <a href="checkout.html">Checkout</a>
+          <a href="#">Contact</a>
+          <a href="track_order.html">Track Order</a>
+          <button
+            id="cart-btn"
+            class="btn btn-warning ms-3 position-relative d-flex align-items-center"
+            data-bs-toggle="modal"
+            data-bs-target="#cartModal"
+          >
+            <i class="bi bi-cart-fill me-1"></i> Cart
+            <span
+              id="cart-count"
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            >
+              0
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Section -->
+      <div id="hero">
+        <h1>Tripti Dry Ice</h1>
+        <p>Premium Dry Ice Solutions for All Your Needs</p>
+      </div>
+    </div>
+
+    <!-- Product Section -->
+    <div id="products">
+      <div class="container">
+        <h2>Our Dry Ice Products</h2>
+        <div class="row">
+          <!-- Product 1 -->
+          <div class="col-md-4">
+            <div class="product-card">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+                alt="Dry Ice Block"
+              />
+              <h5>Dry Ice Block - 5kg</h5>
+              <div class="price">₹25.00</div>
+              <div
+                class="d-flex justify-content-center align-items-center gap-2"
+              >
+                <div class="input-group" style="width: 120px">
+                  <button
+                    class="btn btn-sm btn-outline-light"
+                    onclick="changeQty(this, -1)"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    class="form-control text-center bg-dark text-white"
+                    value="1"
+                    min="1"
+                    readonly
+                  />
+                  <button
+                    class="btn btn-sm btn-outline-light"
+                    onclick="changeQty(this, 1)"
+                  >
+                    +
+                  </button>
+                </div>
+                <button class="btn btn-add-to-cart" onclick="addToCart(this)">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Product 2 -->
+          <div class="col-md-4">
+            <div class="product-card">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+                alt="Dry Ice Pellets"
+              />
+              <h5>Dry Ice Pellets - 3kg</h5>
+              <div class="price">₹18.00</div>
+              <div
+                class="d-flex justify-content-center align-items-center gap-2"
+              >
+                <div class="input-group" style="width: 120px">
+                  <button
+                    class="btn btn-sm btn-outline-light"
+                    onclick="changeQty(this, -1)"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    class="form-control text-center bg-dark text-white"
+                    value="1"
+                    min="1"
+                    readonly
+                  />
+                  <button
+                    class="btn btn-sm btn-outline-light"
+                    onclick="changeQty(this, 1)"
+                  >
+                    +
+                  </button>
+                </div>
+                <button class="btn btn-add-to-cart" onclick="addToCart(this)">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Product 3 -->
+          <div class="col-md-4">
+            <div class="product-card">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+                alt="Dry Ice Slices"
+              />
+              <h5>Dry Ice Slices - 4kg</h5>
+              <div class="price">₹22.00</div>
+              <div
+                class="d-flex justify-content-center align-items-center gap-2"
+              >
+                <div class="input-group" style="width: 120px">
+                  <button
+                    class="btn btn-sm btn-outline-light"
+                    onclick="changeQty(this, -1)"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    class="form-control text-center bg-dark text-white"
+                    value="1"
+                    min="1"
+                    readonly
+                  />
+                  <button
+                    class="btn btn-sm btn-outline-light"
+                    onclick="changeQty(this, 1)"
+                  >
+                    +
+                  </button>
+                </div>
+                <button class="btn btn-add-to-cart" onclick="addToCart(this)">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Product 4 -->
+          <div class="col-md-4">
+            <div class="product-card">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+                alt="Dry Ice Nuggets"
+              />
+              <h5>Dry Ice Nuggets - 2kg</h5>
+              <div class="price">₹15.00</div>
+              <div
+                class="d-flex justify-content-center align-items-center gap-2"
+              >
+                <div class="input-group" style="width: 120px">
+                  <button
+                    class="btn btn-sm btn-outline-light"
+                    onclick="changeQty(this, -1)"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    class="form-control text-center bg-dark text-white"
+                    value="1"
+                    min="1"
+                    readonly
+                  />
+                  <button
+                    class="btn btn-sm btn-outline-light"
+                    onclick="changeQty(this, 1)"
+                  >
+                    +
+                  </button>
+                </div>
+                <button class="btn btn-add-to-cart" onclick="addToCart(this)">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Product 5 -->
+          <!-- Product: Dry Ice Pack - 1kg -->
+          <div class="col-md-4">
+            <div class="product-card">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+                alt="Dry Ice Pack - 1kg"
+                class="img-fluid rounded"
+              />
+              <h5 class="mt-2">Dry Ice Pack - 1kg</h5>
+              <div class="price fw-bold text-warning">₹10.00</div>
+              <div
+                class="d-flex justify-content-center align-items-center gap-2 mt-2"
+              >
+                <div class="input-group" style="width: 120px">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-light"
+                    aria-label="Decrease quantity"
+                    onclick="changeQty(this, -1)"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    class="form-control text-center bg-dark text-white"
+                    value="1"
+                    min="1"
+                    readonly
+                    aria-label="Quantity"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-light"
+                    aria-label="Increase quantity"
+                    onclick="changeQty(this, 1)"
+                  >
+                    +
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-add-to-cart"
+                  onclick="addToCart(this)"
+                  aria-label="Add Dry Ice Pack - 1kg to cart"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 Tripti Dry Ice. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+      // GSAP Animations
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero text animation
+      gsap.from("#hero h1", {
+        opacity: 0,
+        y: 50,
+        duration: 1.5,
+        ease: "power3.out",
+      });
+      gsap.from("#hero p", {
+        opacity: 0,
+        y: 30,
+        duration: 1.5,
+        delay: 0.5,
+        ease: "power3.out",
+      });
+
+      // Product card animations on scroll
+      document.querySelectorAll(".product-card").forEach((card, index) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          delay: index * 0.2,
+          ease: "power2.out",
+        });
+      });
+
+      // Custom Cursor Movement
+      const cursor = document.getElementById("cursor");
+      const cursorBlur = document.getElementById("cursor-blur");
+
+      document.addEventListener("mousemove", (e) => {
+        gsap.to(cursor, {
+          x: e.clientX,
+          y: e.clientY,
+          duration: 0.1,
+          ease: "power2.out",
+        });
+        gsap.to(cursorBlur, {
+          x: e.clientX,
+          y: e.clientY,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      });
+
+      // Add to Cart functionality
+      let cart = [];
+
+      function addToCart(button) {
+        const productCard = button.closest(".product-card");
+        const productName = productCard.querySelector("h5").textContent;
+        const priceText = productCard
+          .querySelector(".price")
+          .textContent.replace("₹", "")
+          .trim();
+        const price = parseFloat(priceText);
+        const qty = parseInt(productCard.querySelector("input").value);
+
+        if (!productName || isNaN(price) || isNaN(qty) || qty < 1) {
+          alert("Invalid product or quantity.");
+          return;
+        }
+
+        // Check if product already exists
+        const existing = cart.find(
+          (item) => item.name === productName && item.price === price
+        );
+        if (existing) {
+          existing.qty += qty;
+        } else {
+          cart.push({ name: productName, price: price, qty: qty });
+        }
+
+        updateCartCount();
+        updateCartModal();
+        localStorage.setItem("triptiCart", JSON.stringify(cart));
+      }
+
+      function changeCartQty(index, delta) {
+        if (cart[index]) {
+          cart[index].qty += delta;
+          if (cart[index].qty < 1) {
+            cart.splice(index, 1); // Remove if quantity becomes 0
+          }
+          localStorage.setItem("triptiCart", JSON.stringify(cart));
+          updateCartModal();
+          updateCartCount();
+        }
+      }
+
+      function removeFromCart(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("triptiCart", JSON.stringify(cart));
+        updateCartModal();
+        updateCartCount();
+      }
+
+      function updateCartCount() {
+        const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+        document.getElementById("cart-count").textContent = totalQty;
+      }
+
+      function updateCartModal() {
+        const cartItemsContainer = document.getElementById("cart-items");
+
+        if (!cart.length) {
+          cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+          return;
+        }
+
+        let total = 0;
+        cartItemsContainer.innerHTML = cart
+          .map((item, index) => {
+            const itemTotal = item.price * item.qty;
+            total += itemTotal;
+
+            return `
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div>
+            <h6 class="mb-1">${item.name}</h6>
+            <div class="text-muted small">₹${item.price.toFixed(2)} x ${
+              item.qty
+            } = ₹${itemTotal.toFixed(2)}</div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-outline-light" onclick="changeCartQty(${index}, -1)">-</button>
+            <span>${item.qty}</span>
+            <button class="btn btn-sm btn-outline-light" onclick="changeCartQty(${index}, 1)">+</button>
+            <button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>`;
+          })
+          .join("");
+
+        cartItemsContainer.innerHTML += `
+    <hr />
+    <div class="text-end fw-bold">Total: ₹${total.toFixed(2)}</div>`;
+      }
+
+  
+
+      function changeQty(btn, delta) {
+        const input = btn.parentElement.querySelector("input");
+        let qty = parseInt(input.value);
+        if (isNaN(qty)) qty = 1;
+
+        qty += delta;
+        qty = Math.max(qty, 1); // Prevent less than 1
+
+        input.value = qty;
+      }
+
+      function addToCart(button) {
+        const productCard = button.closest(".product-card");
+        if (!productCard) {
+          alert("Error: Product element not found.");
+          return;
+        }
+
+        const productNameElem = productCard.querySelector("h5");
+        const priceElem = productCard.querySelector(".price");
+        const qtyInput = productCard.querySelector("input");
+
+        if (!productNameElem || !priceElem || !qtyInput) {
+          alert("Error: Product details are incomplete.");
+          return;
+        }
+
+        const productName = productNameElem.textContent.trim();
+        const priceText = priceElem.textContent.replace("₹", "").trim();
+        const price = parseFloat(priceText);
+        const qty = parseInt(qtyInput.value);
+
+        if (!productName || isNaN(price) || isNaN(qty) || qty < 1) {
+          alert("Invalid product or quantity.");
+          return;
+        }
+
+        // Check if product already exists in cart
+        const existing = cart.find(
+          (item) => item.name === productName && item.price === price
+        );
+        if (existing) {
+          existing.qty += qty;
+        } else {
+          cart.push({ name: productName, price: price, qty: qty });
+        }
+
+        updateCartCount();
+        updateCartModal();
+        localStorage.setItem("triptiCart", JSON.stringify(cart));
+        alert(`${qty} x ${productName} added to your cart!`);
+      }
+    </script>
+    <!-- Cart Modal -->
+    <div
+      class="modal fade"
+      id="cartModal"
+      tabindex="-1"
+      aria-labelledby="cartModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header border-bottom border-secondary">
+            <h5 class="modal-title" id="cartModalLabel">
+              <i class="bi bi-cart-fill me-2"></i>Your Cart
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="cart-items">Your cart is empty.</div>
+          <div class="modal-footer border-top border-secondary">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Continue Shopping
+            </button>
+            <button type="button" class="btn btn-warning" id="checkout-btn">
+              Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("checkout-btn")
+        .addEventListener("click", function () {
+          if (cart.length === 0) {
+            alert("Your cart is empty!");
+            return;
+          }
+          localStorage.setItem("triptiCart", JSON.stringify(cart)); // Save cart to localStorage
+          window.location.href = "checkout.html"; // Redirect
+        });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedCart = JSON.parse(localStorage.getItem("triptiCart"));
+        if (Array.isArray(savedCart)) {
+          cart = savedCart;
+          updateCartCount();
+          updateCartModal();
+        }
+      });
+    </script>
+  </body>
+</html>

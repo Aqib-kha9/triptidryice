@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>✅ Order Confirmed!</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f4f4f4;
+        padding: 20px;
+      }
+      .card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+        max-width: 600px;
+        margin: auto;
+        margin-top: 30px;
+        display: none;
+      }
+      input,
+      button {
+        padding: 10px;
+        font-size: 16px;
+      }
+      .input-area {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .error {
+        color: red;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="input-area">
+      <h2>🔍 Track Your Order</h2>
+      <input
+        type="text"
+        id="orderIdInput"
+        placeholder="Enter Internal Order ID (e.g. order_688...)"
+      />
+      <button onclick="fetchOrder()">Fetch Order</button>
+      <div class="error" id="error"></div>
+    </div>
+
+    <div class="card" id="orderCard">
+      <h3>✅ Order Confirmed!</h3>
+      <p>
+        <strong>Internal Order ID:</strong> <span id="internalOrderId"></span>
+      </p>
+      <p><strong>Porter Order ID:</strong> <span id="porterOrderId"></span></p>
+      <p><strong>Status:</strong> <span id="porterStatus"></span></p>
+      <p>
+        <strong>Tracking URL:</strong>
+        <a id="trackingUrl" href="#" target="_blank">Track Delivery</a>
+      </p>
+      <p>
+        <strong>Estimated Pickup Time:</strong> <span id="pickupTime"></span>
+      </p>
+
+      <hr />
+      <h4>👤 Customer Details</h4>
+      <p><strong>Name:</strong> <span id="customerName"></span></p>
+      <p><strong>Phone:</strong> <span id="customerPhone"></span></p>
+      <p><strong>Email:</strong> <span id="customerEmail"></span></p>
+
+      <hr />
+      <h4>🚚 Delivery Details</h4>
+      <p><strong>Pickup Address:</strong> <span id="pickup"></span></p>
+      <p><strong>Drop Address:</strong> <span id="drop"></span></p>
+      <p><strong>City:</strong> <span id="city"></span></p>
+      <p><strong>Pincode:</strong> <span id="pincode"></span></p>
+
+      <hr />
+      <h4>🗺️ Pickup Location on Map</h4>
+      <iframe
+        src="https://www.google.com/maps?q=Plot+No.57+A+Block,+M.I.D.C.,+T.T.C.Industrial+Area,+Mahape,+Navi+Mumbai+-+400710&output=embed"
+        width="100%"
+        height="400"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      >
+      </iframe>
+
+      <hr />
+      <h4>🧊 Ordered Products</h4>
+      <ul id="productList"></ul>
+
+      <hr />
+      <h4>💳 Payment Summary</h4>
+      <p>
+        <strong>Amount Paid:</strong> <span id="currencySymbol"></span
+        ><span id="total"></span>
+      </p>
+      <p><strong>Payment Method:</strong> <span id="paymentMethod"></span></p>
+      <p><strong>Payment Status:</strong> <span id="paymentStatus"></span></p>
+    </div>
+
+    <script>
+      function formatDateTime(isoString) {
+        try {
+          const date = new Date(isoString);
+          return date.toLocaleString("en-IN", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+          });
+        } catch {
+          return "N/A";
+        }
+      }
+
+      function getCurrencySymbol(currency) {
+        const symbols = {
+          INR: "₹",
+          USD: "$",
+          EUR: "€",
+        };
+        return symbols[currency] || currency + " ";
+      }
+
+      async function fetchOrder() {
+        const orderId = document.getElementById("orderIdInput").value.trim();
+        const errorBox = document.getElementById("error");
+        const card = document.getElementById("orderCard");
+        errorBox.textContent = "";
+        card.style.display = "none";
+
+        if (!orderId) {
+          errorBox.textContent = "Please enter a valid Order ID.";
+          return;
+        }
+
+        try {
+          const res = await fetch(`get_order.php?order_id=${orderId}`);
+          const text = await res.text();
+
+          if (text.startsWith("<!DOCTYPE") || text.startsWith("<html")) {
+            throw new Error("Invalid response format");
+          }
+
+          const data = JSON.parse(text);
+
+          if (data.error) {
+            errorBox.textContent = data.error;
+            return;
+          }
+
+          document.getElementById("internalOrderId").textContent =
+            data.order_id || "N/A";
+          document.getElementById("porterOrderId").textContent =
+            data.porter_order_id || "N/A";
+          document.getElementById("porterStatus").textContent =
+            data.porter_status || "N/A";
+          document.getElementById("trackingUrl").href =
+            data.tracking_url || "#";
+          document.getElementById("trackingUrl").textContent =
+            data.tracking_url || "Unavailable";
+          document.getElementById("pickupTime").textContent = formatDateTime(
+            data.estimated_pickup_time
+          );
+
+          document.getElementById("customerName").textContent =
+            data.customer_name || "N/A";
+          document.getElementById("customerPhone").textContent =
+            data.customer_phone || "N/A";
+          document.getElementById("customerEmail").textContent =
+            data.customer_email || "N/A";
+
+          document.getElementById("pickup").textContent =
+            data.customer_address || "N/A";
+          document.getElementById("drop").textContent =
+            data.customer_drop || "N/A";
+          document.getElementById("city").textContent =
+            data.customer_city || "N/A";
+          document.getElementById("pincode").textContent =
+            data.customer_pincode || "N/A";
+
+          const productList = document.getElementById("productList");
+          productList.innerHTML = "";
+          try {
+            const products = JSON.parse(data.product_list);
+            if (Array.isArray(products) && products.length > 0) {
+              products.forEach((p) => {
+                const li = document.createElement("li");
+                li.textContent = `${p.name} x ${p.quantity} (₹${p.price})`;
+                productList.appendChild(li);
+              });
+            } else {
+              productList.innerHTML = "<li>No products found</li>";
+            }
+          } catch {
+            productList.innerHTML = "<li>Invalid product list</li>";
+          }
+
+          document.getElementById("currencySymbol").textContent =
+            getCurrencySymbol(data.currency);
+          document.getElementById("total").textContent =
+            data.total_amount || "0.00";
+          document.getElementById("paymentMethod").textContent =
+            data.payment_method || "N/A";
+          document.getElementById("paymentStatus").textContent =
+            data.payment_status || "N/A";
+
+          card.style.display = "block";
+        } catch (err) {
+          console.error("Error:", err);
+          errorBox.textContent = "Something went wrong. Please try again.";
+        }
+      }
+    </script>
+  </body>
+</html>
